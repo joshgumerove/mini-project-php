@@ -5,19 +5,30 @@ if (!xhr) {
 }
 
 function execute() {
-  if (xhr.readyState == 0 || xhr.readyState == 4) {
+  if (xhr.readyState === 0 || xhr.readyState === 4) {
     // unsent or done
     let foodItem = document.getElementById("foodItem").value;
     let method = "GET";
     let url = `./foodCheck.php?item=${foodItem}`;
 
-    xhr.open(method, url);
-    xhr.onreadystatechange = () => {};
-    xhr.send();
-  } else {
+    xhr.open(method, url, true);
+    xhr.onreadystatechange = handleServerResponse;
+    xhr.send(null);
+  }
+}
+
+function handleServerResponse() {
+  if (xhr.readyState == 4 && xhr.status == 200) {
+    let XMLResponse = xhr.responseXML;
+    let XMLDocumentElement = XMLResponse.documentElement;
+    let message = XMLDocumentElement.innerHTML;
+    document.getElementById(
+      "output"
+    ).innerHTML = `<span style="color:green">${message}</span>`;
     setTimeout(() => {
-      console.log("no AJAX request sent");
       execute();
     }, 1000);
   }
 }
+
+execute();

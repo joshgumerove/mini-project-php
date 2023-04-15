@@ -13,10 +13,10 @@ if (in_array($item, $itemArray))
   echo "We do have a $item in stock";
   }
 
-elseif($item="") {
+  elseif($item=="") {
     echo 'Enter something';
   }
-
+  
 else
   {
   echo "We do not have a $item in stock";

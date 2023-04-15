@@ -9,7 +9,7 @@ function execute() {
     // unsent or done
     let foodItem = document.getElementById("foodItem").value;
     let method = "GET";
-    let url = "will come back";
+    let url = `./foodCheck.php?item=${foodItem}`;
 
     xhr.open(method, url);
     xhr.onreadystatechange = () => {};
